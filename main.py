@@ -64,11 +64,16 @@ res = s.post(LOGIN_URL, data={
 }, headers=header)
 print(res.text)
 res_header = json.loads(res.text)['data']
-print(res_header)
+print(res_header['token'])
+header = {
+    "token": res_header['token'],
+    "utoken": res_header['token'],
+}
+print(header)
 # cookie = dict(res.headers['Set-Cookie'][:89])
 # print(cookie)
 # headers = {"Cookie": cookie}
-response = s.get(ROOT_URL, cookies=s.cookies)
+response = s.get(ROOT_URL, headers=header)
 print(response)
 test = s.get("https://planet.mblock.cc/cloud/token/coverupload")
 print(test.text)
